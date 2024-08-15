@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- molla/category-list.html  22 Nov 2019 10:02:52 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>L&A</title>
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="author" content="p-themes">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="assets/images/icons/site.html">
+    <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
+    <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Molla">
+    <meta name="application-name" content="Molla">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Plugins CSS File -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/plugins/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="assets/css/plugins/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/plugins/nouislider/nouislider.css">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <header class="header">
+            <div class="header-middle sticky-header">
+                <div class="container">
+                    <div class="header-left">
+                        <button class="mobile-menu-toggler">
+                            <span class="sr-only">Toggle mobile menu</span>
+                            <i class="icon-bars"></i>
+                        </button>
+
+                        <a href="index.html" class="logo">
+                            <img src="assets/images/laptopLogo.jpg" alt="Molla Logo" width="105" height="25">
+                        </a>
+
+                        <nav class="main-nav">
+                            <ul class="menu sf-arrows">
+                                <li class="megamenu-container active">
+                                    <a href="/" class="sf-with-ul">Home</a>
+                                </li>
+                            </ul><!-- End .menu -->
+                        </nav><!-- End .main-nav -->
+                    </div><!-- End .header-left -->
+                </div><!-- End .container -->
+            </div><!-- End .header-middle -->
+        </header><!-- End .header -->
+
+        <form id="filterForm" action="/search" method="GET">
+            <main class="main">        
+                <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+                    <div class="container">
+                        <h1 class="page-title">List<span>Shop</span></h1>
+                    </div><!-- End .container -->
+                </div><!-- End .page-header -->
+                <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+                    <div class="container">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/">Shop</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">List</li>
+                        </ol>
+                    </div><!-- End .container -->
+                </nav><!-- End .breadcrumb-nav -->
+
+                <div class="page-content">
+                    <div class="row">
+
+                    </div><!-- End .row -->
+                    
+                                   
+                    </div>
+
+
+                    
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                    <script>
+                        $(document).ready(function () {
+                            $('#sortby').change(function () {
+                                $('#selectedSortby').val($(this).val());
+                            });
+                    
+                            $('.custom-control-input').change(function () {
+                                var selectedCategories = [];
+                                $('.custom-control-input:checked').each(function () {
+                                    selectedCategories.push($(this).attr('id').replace('cat-', ''));
+                                });
+                                $('#selectedCategories').val(selectedCategories.join(','));
+                            });
+                    
+                            $('#filterForm').submit(function (event) {
+                                event.preventDefault();
+                    
+                                var queryString = $(this).serialize();
+                                console.log(queryString);
+                    
+                                window.location.href = '/search?' + queryString;
+                            });
+                        });
+                    </script>                    
+                    
+                    
+                            
+    
+                    
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <div class="products mb-3">
+                                    <% if (products && products.length) { %>
+                                        <% products.forEach(product => { %>
+                                            <div class="product product-list">
+                                                <div class="row">
+                                                    <div class="col-6 col-lg-3">
+                                                        <figure class="product-media">
+                                                        <span class="product-label <% if (product.condition === 'new') { %>label-new<% } else if (product.condition === 'out of stock') { %>label-out<% } %>">
+                                                            <%= product.condition %>
+                                                        </span>
+                                                        <a href="/productView?productid=<%= product._id %>">
+                                                            <img src="/adminassets/imgs/products/<%= product.image[0] %>" alt="<%= product.name %>" class="product-image">
+                                                        </a>
+                                                        </figure><!-- End .product-media -->
+                                                    </div><!-- End .col-6 col-lg-3 -->
+                                                    
+                                                    <div class="col-lg-6">
+                                                        <div class="product-body product-action-inner">
+                                                            <a href="#" class="btn-product btn-wishlist" title="Add to wishlist"><span>add to wishlist</span></a>
+                                                            <div class="product-cat">
+                                                                <a href="#"><%= product.category %></a>
+                                                            </div><!-- End .product-cat -->
+                                                            <p><%= product.name %></p>
+                                                            <h3 class="product-title"><a href="/productView?productid=<%= product._id %>"><%= product.productName %></a></h3><!-- End .product-title -->
+                                                            <div class="product-content">
+                                                                <p><%= product.description %></p>
+                                                            </div><!-- End .product-content -->
+                                                        </div><!-- End .product-body -->
+                                                    </div><!-- End .col-lg-6 -->
+                                                    
+                                                    <div class="col-6 col-lg-3 order-lg-last">
+                                                        <div class="product-list-action">
+                                                            <div class="product-price">
+                                                                <%= product.salePrice %>
+                                                            </div><!-- End .product-price -->
+                                                            <div class="ratings-container">
+                                                                <div class="ratings">
+                                                                    <div class="ratings-val" style="width: 50"></div><!-- End .ratings-val -->
+                                                                </div><!-- End .ratings -->
+                                                                <span class="ratings-text">( <%= product.reviews %> Reviews )</span>
+                                                            </div><!-- End .rating-container -->
+                                                            <a href="/add-to-cart" class="btn-product btn-cart"><span>add to cart</span></a>
+                                                        </div><!-- End .product-list-action -->
+                                                    </div><!-- End .col-6 col-lg-3 -->
+                                                </div><!-- End .row -->
+                                            </div><!-- End .product -->
+                                        <% }) %>
+                                    <% } else { %>
+                                        <p>No products found.</p>
+                                    <% } %>
+                                </div><!-- End .products -->
+                                
+                                <!-- Pagination code here -->
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                        <!-- Pagination items -->
+                                    </ul>
+                                </nav>
+                            </div><!-- End .col-lg-9 -->
+                            
+                            
+                            
+                            
+                            <aside class="col-lg-3 order-lg-first">
+                                <form class="form-inline align-items-center" action="/search">
+                                    <div class="form-group mb-0">
+                                        <input type="search" class="form-control" name="search" value="<%=search%>" id="q" placeholder="Search product ..." required style="border:2px; border-radius: 10px; margin-bottom: 5px; height: 40px;">
+                                    </div><!-- End .form-group -->
+                                </form>
+                            
+                                <div class="toolbox">
+                                    <div class="toolbox-left">
+                                        <div class="toolbox-sort">
+                                            <label for="sortby">Sort by:</label>
+                                            <div class="select-custom">
+                                                <select name="sortby" id="sortby" class="form-control">
+                                                    <option value="ascend" <% if (sortby === 'ascend') { %>selected="selected"<% } %>>Aa-zZ</option>
+                                                    <option value="descend" <% if (sortby === 'descend') { %>selected="selected"<% } %>>zZ-aA</option>
+                                                    <option value="pricelh" <% if (sortby === 'pricelh') { %>selected="selected"<% } %>>Price low- Price High</option>
+                                                    <option value="pricehl" <% if (sortby === 'pricehl') { %>selected="selected"<% } %>>Price High- Price Low</option>
+                                                    <option value="new" <% if (sortby === 'new') { %>selected="selected"<% } %>>New Arrivals</option>
+                                                    <option value="popularity" <% if (sortby === 'popularity') { %>selected="selected"<% } %>>Popularity</option>
+                                                </select>                                                
+                                            </div>
+                                        </div><!-- End .toolbox-sort -->
+                                        <div class="toolbox-layout">
+                                            <!-- Your layout buttons here -->
+                                        </div><!-- End .toolbox-layout -->
+                                    </div><!-- End .toolbox-right -->
+                                </div><!-- End .toolbox -->
+                                <div class="sidebar sidebar-shop">
+                                    <div class="widget widget-collapsible">
+                                        <h3 class="widget-title">
+                                            <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true" aria-controls="widget-1">
+                                                Category
+                                            </a>
+                                        </h3><!-- End .widget-title -->
+                                    
+                                        <div class="collapse show" id="widget-1">
+                                            <div class="widget-body">
+                                                <div class="filter-items filter-items-count">
+                                                    <% categories.forEach(function(category) { %>
+                                                        <div class="filter-item">
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" class="custom-control-input" id="cat-<%= category._id %>">
+                                                                <label class="custom-control-label" for="cat-<%= category._id %>"><%= category.name %></label>
+                                                            </div><!-- End .custom-checkbox -->
+                                                        </div><!-- End .filter-item -->
+                                                    <% }); %>
+                                                </div><!-- End .filter-items -->
+                                            </div><!-- End .widget-body -->
+                                        </div><!-- End .collapse -->
+                                        
+                                        <button type="submit" style="border:5px; border-radius: 10px;padding-left: 15px; padding-right: 15px; " id="submitBtn">Filter Search</button>  
+                                    </div><!-- End .widget -->
+                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.js"></script>
+                                    <script>
+                                        $(document).ready(function() {
+                                            function fetchProducts() {
+                                                var search = $('#q').val().trim();
+                                                var sortby = $('#sortby').val();
+                                                var categories = [];
+                                
+                                                $('input[type="checkbox"]:checked').each(function() {
+                                                    categories.push($(this).attr('id').replace('cat-', ''));
+                                                });
+                                
+                                                $.ajax({
+                                                    url: '/search',
+                                                    method: 'GET',
+                                                    data: {
+                                                        search: search,
+                                                        sortby: sortby,
+                                                        categories: categories
+                                                    },
+                                                    success: function(response) {
+                                                        $('.products-container').html(response);
+                                                    },
+                                                    error: function(xhr, status, error) {
+                                                        console.error(error);
+                                                    }
+                                                });
+                                            }
+                                
+                                            $('#q').on('input', function() {
+                                                fetchProducts();
+                                            });
+                                
+                                            $('#sortby').change(function() {
+                                                fetchProducts();
+                                            });
+                                
+                                            $('input[type="checkbox"]').change(function() {
+                                                fetchProducts();
+                                            });
+                                
+                                            fetchProducts();
+                                        });
+                                    </script>                         
+                                </div><!-- End .sidebar sidebar-shop -->
+                            </aside><!-- End .col-lg-3 -->
+                            
+                        </div><!-- End .row -->
+                    </div><!-- End .container -->
+                </div><!-- End .page-content -->
+            </main>
+        </form>
+        <footer class="footer">
+        	<div class="footer-middle">
+	            <div class="container">
+	            	<div class="row">
+	            		<div class="col-sm-6 col-lg-3">
+	            			<div class="widget widget-about">
+	            				<img src="/assets/images/laptopLogo.jpg" class="footer-logo" alt="Footer Logo" width="105" height="25">
+	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+
+	            				<div class="social-icons">
+	            					<a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+	            					<a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
+	            					<a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+	            					<a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+	            					<a href="#" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>
+	            				</div><!-- End .soial-icons -->
+	            			</div><!-- End .widget about-widget -->
+	            		</div><!-- End .col-sm-6 col-lg-3 -->
+
+	            		<div class="col-sm-6 col-lg-3">
+	            			<div class="widget">
+	            				<h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+
+	            				<ul class="widget-list">
+	            					<li><a href="about.html">About L&A</a></li>
+	            					<li><a href="#">How to shop on L&A</a></li>
+	            					<li><a href="#">FAQ</a></li>
+	            					<li><a href="contact.html">Contact us</a></li>
+	            					<li><a href="login.html">Log in</a></li>
+	            				</ul><!-- End .widget-list -->
+	            			</div><!-- End .widget -->
+	            		</div><!-- End .col-sm-6 col-lg-3 -->
+
+	            		<div class="col-sm-6 col-lg-3">
+	            			<div class="widget">
+	            				<h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+
+	            				<ul class="widget-list">
+	            					<li><a href="#">Payment Methods</a></li>
+	            					<li><a href="#">Money-back guarantee!</a></li>
+	            					<li><a href="#">Returns</a></li>
+	            					<li><a href="#">Shipping</a></li>
+	            					<li><a href="#">Terms and conditions</a></li>
+	            					<li><a href="#">Privacy Policy</a></li>
+	            				</ul><!-- End .widget-list -->
+	            			</div><!-- End .widget -->
+	            		</div><!-- End .col-sm-6 col-lg-3 -->
+
+	            		<div class="col-sm-6 col-lg-3">
+	            			<div class="widget">
+	            				<h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+
+	            				<ul class="widget-list">
+	            					<li><a href="#">Sign In</a></li>
+	            					<li><a href="cart.html">View Cart</a></li>
+	            					<li><a href="#">My Wishlist</a></li>
+	            					<li><a href="#">Track My Order</a></li>
+	            					<li><a href="#">Help</a></li>
+	            				</ul><!-- End .widget-list -->
+	            			</div><!-- End .widget -->
+	            		</div><!-- End .col-sm-6 col-lg-3 -->
+	            	</div><!-- End .row -->
+	            </div><!-- End .container -->
+	        </div><!-- End .footer-middle -->
+
+	        <div class="footer-bottom">
+	        	<div class="container">
+	        		<p class="footer-copyright">Copyright © 2019 L&A Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+	        		<figure class="footer-payments">
+	        			<img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
+	        		</figure><!-- End .footer-payments -->
+	        	</div><!-- End .container -->
+	        </div><!-- End .footer-bottom -->
+        </footer><!-- End .footer -->
+    </div><!-- End .page-wrapper -->
+    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+
+
+
+
+    <!-- Plugins JS File -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery.hoverIntent.min.js"></script>
+    <script src="assets/js/jquery.waypoints.min.js"></script>
+    <script src="assets/js/superfish.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/wNumb.js"></script>
+    <script src="assets/js/bootstrap-input-spinner.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/nouislider.min.js"></script>
+    <!-- Main JS File -->
+    <script src="assets/js/main.js"></script>
+</body>
+
+
+<!-- molla/category-list.html  22 Nov 2019 10:02:52 GMT -->
+</html>
